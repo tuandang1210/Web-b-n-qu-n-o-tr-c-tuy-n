@@ -2,7 +2,7 @@
 Trước khi chạy dự án, cần cài đặt:
 PHP ≥ 8.1
 Composer
-XAMPP (MySQL + Apache)
+XAMPP (MySQL + Apache) https://www.apachefriends.org/download.html
 Visual Studio Code
 2. Tải mã nguồn
 Clone từ GitHub hoặc copy thư mục dự án vào máy:
