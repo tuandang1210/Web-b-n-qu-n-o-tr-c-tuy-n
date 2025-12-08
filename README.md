@@ -45,5 +45,5 @@ Username: admin
 Password: 123456
 
 Customer:
-Username: tuan
+Username: tuandang
 Password: 123456
