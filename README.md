@@ -88,12 +88,16 @@ http://localhost/phpmyadmin
 tạo database tên: qlbh1
 Import file SQL của dự án
 
-6. Chạy server Laravel
+6. Generate App Key
+Trong terminal:
+php artisan key:generate
+
+7. Chạy server Laravel
 php artisan serve
 Dự án chạy tại:
  http://127.0.0.1:8000
 
-7. Tài khoản đăng nhập mẫu (nếu có)
+8. Tài khoản đăng nhập mẫu
 Admin:
 Username: admin
 Password: 123456
