@@ -1,12 +1,6 @@
 @extends('admin.layout')
 
 @section('content')
-<!-- Bootstrap 5 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 
 <h4>Products Management</h4>
 
@@ -17,7 +11,8 @@
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
-<button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addProductModal" enctype="multipart/form-data">
+<button class="btn btn-success mb-3" data-bs-toggle="modal" 
+data-bs-target="#addProductModal" enctype="multipart/form-data">
     Add New Product
 </button>
 
@@ -35,7 +30,10 @@
             <td>{{ $p->name }}</td>
             <td>{{ $p->brand }}</td>
             <td>{{ $p->price }}$</td>
-            <td><img src="{{ asset($p->image) }}" width="80" class="mt-2"></td>
+            <td>
+                <img src="{{ asset($p->image) }}" width="80" class="mt-2">
+
+            </td>
             <td>
                 <form method="POST" action="{{ route('admin.products.delete', $p->product_id) }}">
                      {{ csrf_field() }} 
@@ -44,17 +42,18 @@
                     </button>
                 </form>
 
-                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#editProductModal{{ $p->product_id }}" enctype="multipart/form-data">
+                <button class="btn btn-success mb-3" data-bs-toggle="modal" 
+                data-bs-target="#editProductModal{{ $p->product_id }}" 
+                enctype="multipart/form-data">
                     Edit
                 </button>
             </td>
-            
+          
         </tr>
         @endforeach
     </tbody>
 </table>
 
 @include('admin.modals.add_product')
-@include('admin.modals.edit_product')
-
+  @include('admin.modals.edit_product')
 @endsection
