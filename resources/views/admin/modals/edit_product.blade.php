@@ -1,7 +1,7 @@
 @foreach($products as $p)
 <div class="modal fade" id="editProductModal{{ $p->product_id }}" tabindex="-1">
     <div class="modal-dialog">
-        <form method="POST" action="{{ route('admin.products.update', $p->product_id) }}" class="modal-content">
+        <form method="POST" action="{{ route('admin.products.update', $p->product_id) }}" class="modal-content" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="modal-header">
@@ -23,19 +23,16 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Image</label>
-                    <input type="file" name="image" class="form-control" id="imageInput">
-                    @if(isset($p) && $p->image)
-                        <img src="{{ asset($p->image) }}" width="80" class="mt-2" id="imagePreview">
-                    @else
-                        <img src="" width="80" class="mt-2" id="imagePreview" style="display:none;">
-                    @endif
+                    <input type="file" name="image" class="form-control image-input">
+                    <img src="{{ asset($p->image) }}" class="image-preview mt-2" width="80">
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Description</label>
                     <textarea name="description" class="form-control">{{ $p->description }}</textarea>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer">  
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
