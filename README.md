@@ -1,4 +1,4 @@
-[qlbh1.sql](https://github.com/user-attachments/files/24032703/qlbh1.sql)1. Yêu cầu hệ thống
+1. Yêu cầu hệ thống
 Trước khi chạy dự án, cần cài đặt:
 PHP ≥ 8.1
 Composer
