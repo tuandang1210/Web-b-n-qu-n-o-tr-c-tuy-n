@@ -79,7 +79,7 @@
                         <i class="bi bi-star-fill"></i>
                     </div>
                     <h5>{{ $product->price }}$</h5>
-                    <a style="color: black;" href="#"><i class="bi bi-cart"></i></a>
+                    <a style="color: black;" href="{{ route('customer.sproduct', ['id' => $product->product_id] )}}"><i class="bi bi-cart"></i></a>
                 </div>
             </div>
         </div>

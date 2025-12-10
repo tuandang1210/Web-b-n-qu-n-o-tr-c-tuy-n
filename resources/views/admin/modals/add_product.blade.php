@@ -1,6 +1,6 @@
 <div class="modal fade" id="addProductModal">
   <div class="modal-dialog">
-    <form method="POST" action="{{ route('admin.products.add') }}" class="modal-content">
+    <form method="POST" action="{{ route('admin.products.add') }}" class="modal-content" enctype="multipart/form-data">
       @csrf
       <div class="modal-header"><h5>Add New Product</h5></div>
       <div class="modal-body">
@@ -22,12 +22,8 @@
 
         <div class="mb-2">
             <label class="form-label">Image</label>
-            <input type="file" name="image" class="form-control" id="imageInput">
-            @if(isset($p) && $p->image)
-                <img src="{{ asset($p->image) }}" width="80" class="mt-2" id="imagePreview">
-            @else
-                <img src="" width="80" class="mt-2" id="imagePreview" style="display:none;">
-            @endif
+            <input type="file" name="image" class="form-control image-input">
+            <img src="" class="image-preview mt-2" width="80" style="display:none;">
         </div>
 
         <div class="mb-2">
