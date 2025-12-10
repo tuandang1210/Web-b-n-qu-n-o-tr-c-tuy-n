@@ -12,11 +12,11 @@ class Cart extends Model
     protected $primaryKey = 'cart_id';
     protected $fillable = [
         'cart_id',
-        'user_id',
-        'created_at',
+        'user_id'
     ];
 
-    const UPDATED_AT = null;
+    public $timestamps = false;
+    
     public function items()
     {
         return $this->hasMany(CartItem::class, 'cart_id', 'cart_id');
