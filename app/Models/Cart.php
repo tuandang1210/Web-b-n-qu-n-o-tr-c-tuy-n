@@ -12,8 +12,7 @@ class Cart extends Model
     protected $primaryKey = 'cart_id';
     protected $fillable = [
         'cart_id',
-        'user_id',
-        'created_at',
+        'user_id'
     ];
 
     const UPDATED_AT = null;
