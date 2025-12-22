@@ -20,6 +20,15 @@ DB_DATABASE=qlbh1
 DB_USERNAME=root
 DB_PASSWORD=
 
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=d3d787d4d5b2e2
+MAIL_PASSWORD=33f793bc306e21
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=test@mailtrap.io
+MAIL_FROM_NAME="Contact Website"
+
 SESSION_DRIVER=file
 
 5. Tạo database & import dữ liệu

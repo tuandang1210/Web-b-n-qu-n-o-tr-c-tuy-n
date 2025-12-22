@@ -58,6 +58,8 @@ Route::prefix('customer')->group(function () {
     Route::post('/checkout', [CustomerController::class, 'placeOrder'])->name('customer.checkout.place');
 
     Route::get('/my-orders', [CustomerController::class, 'myOrders'])->name('customer.orders');
+
+    Route::post('/contact-send', [CustomerController::class, 'send'])->name('contact.send');
 });
 
 

@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController 
 {
@@ -175,4 +176,25 @@ class CustomerController
         return view('customer.orders', compact('orders', 'orderItems'));
     }
  
+    //trang contact
+    public function send(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+
+        Mail::send('customer.email', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'content' => $request->message,
+        ], function ($mail) use ($request) {
+            $mail->to('dqt465@gmail.com')
+                 ->subject($request->subject);
+        });
+
+        return back()->with('success', 'Gửi thành công!');
+    }
 }

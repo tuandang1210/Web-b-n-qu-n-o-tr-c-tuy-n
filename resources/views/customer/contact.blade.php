@@ -35,23 +35,60 @@
     </div>
 </section>
 
-<section id="form-input">
-    <div class="form">
-        <span>Leave a message</span>
-        <h4>We love to hear from you</h4>
-        <div class="mb-3">
-            <input type="text" id="nameInput" placeholder="Your Name">
-        </div>
-        <div class="mb-3">
-            <input type="email" id="emailInput" placeholder="Email">
-        </div>
-        <div class="mb-3">
-            <input type="text" id="subjectInput" placeholder="Subject">
-        </div>
-        <div class="mb-3">
-            <textarea id="messageInput" rows="5" cols="50" placeholder="Your Message"></textarea>
-        </div>
-            <button type="button" class="btn btn-outline-secondary" onclick="validateForm()">Submit</button>
+<section id="form-input" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-sm border-1 rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center fw-bold mb-1">Leave a message</h3>
+                        <p class="text-center text-muted mb-4">
+                            We love to hear from you
+                        </p>
+                        <form action="{{ route('contact.send') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" 
+                                       name="name" 
+                                       class="form-control rounded-3"
+                                       placeholder="Enter your name"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" 
+                                       name="email" 
+                                       class="form-control rounded-3"
+                                       placeholder="Enter your email"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" 
+                                       name="subject" 
+                                       class="form-control rounded-3"
+                                       placeholder="Subject"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Message</label>
+                                <textarea name="message" 
+                                          class="form-control rounded-3"
+                                          rows="4"
+                                          placeholder="Write your message..."
+                                          required></textarea>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <button type="submit" 
+                                        class="btn btn-outline-secondary btn-lg rounded-pill">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

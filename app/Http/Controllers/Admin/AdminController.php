@@ -59,16 +59,18 @@ class AdminController
             $imagePath = null;
         }
 
-        Product::create([
+        $product = Product::create([
             'name' => $req->name,
             'brand' => $req->brand,
             'price' => $req->price,
             'image' => $imagePath,
             'description' => $req->description,
-            
+     
         ]);
 
-        return back()->with('success', 'Thêm sản phẩm thành công!');
+        return redirect()->to(
+            route('admin.products') . '#product-' . $product->product_id
+        )->with('success', 'Thêm thành công!');
     }
 
     public function deleteProduct($id)
@@ -94,7 +96,7 @@ class AdminController
             }
 
             $product->save();
-            return redirect()->back()->with('success', 'Sửa sản phẩm thành công!');
+            return redirect()->to(route('admin.products') . '#product-' . $product->product_id)->with('success', 'Cập nhập thành công!');
         }
 
 //                          PHẦN USER

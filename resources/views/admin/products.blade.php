@@ -32,7 +32,8 @@ data-bs-target="#addProductModal" enctype="multipart/form-data">
 
     <tbody>
         @foreach($products as $p)
-        <tr>
+        <tr id="product-{{ $p->product_id }}">
+            
             <td>{{ $p->name }}</td>
             <td>{{ $p->brand }}</td>
             <td>{{ $p->price }}$</td>

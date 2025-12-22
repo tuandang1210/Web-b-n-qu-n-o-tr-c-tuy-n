@@ -15,7 +15,6 @@
 <body>
 
 <section id="header">
-    <h2>Welcome, {{ $user->username }}!</h2>
     <div>
         <ul class="nav">
             <li class="nav-item">
