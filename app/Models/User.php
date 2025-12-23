@@ -24,5 +24,13 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'user_id');
+    }
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'user_id', 'id');
+    }
 }

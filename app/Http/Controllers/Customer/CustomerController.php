@@ -46,11 +46,11 @@ class CustomerController
     {
         $user = Session::get('user'); 
 
-        $cartItems = CartItem::with('product')
-            ->whereHas('cart', function($q) use ($user) {
-                $q->where('user_id', $user->user_id);
-            })
-            ->get();
+        $cart = Cart::with('items.product')
+            ->where('user_id', $user->user_id)
+            ->first();
+
+        $cartItems = $cart ? $cart->items : collect([]);
 
         return view('customer.cart', compact('cartItems'));
     }
@@ -88,7 +88,7 @@ class CustomerController
 
         $cart = Cart::where('user_id', $user->user_id)->first();
 
-        $deleted = CartItem::where('cart_id', $cart->cart_id)
+        $deleted = $cart->items()
             ->where('product_id', $product_id)
             ->where('size', $size)
             ->delete();
@@ -105,25 +105,17 @@ class CustomerController
     {
         $user = Session::get('user');
 
-        $cart = Cart::where('user_id', $user->user_id)->first();
+        $cart = Cart::with('items.product')
+            ->where('user_id', $user->user_id)
+            ->first();
 
-        if (!$cart) {
+        if (!$cart || $cart->items->isEmpty()) {
             return back()->with('error', 'Your cart is empty.');
         }
 
-        $cartItems = CartItem::with('product')
-            ->where('cart_id', $cart->cart_id)
-            ->get();
-
-        if ($cartItems->isEmpty()) {
-            return back()->with('error', 'Your cart is empty.');
-        }
-
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item->quantity * $item->product->price;
-        }
-
+        $total = $cart->items->sum(function ($item) {
+            return $item->quantity * $item->product->price;
+        });
         $order = Order::create([
             'user_id'       => $user->user_id,
             'full_name'     => $request->full_name,
@@ -135,7 +127,7 @@ class CustomerController
             'created_at'    => now(),
         ]);
 
-        foreach ($cartItems as $item) {
+        foreach ($cart->items as $item) {
             OrderItem::create([
                 'order_id'   => $order->order_id,
                 'product_id' => $item->product_id,
@@ -145,7 +137,7 @@ class CustomerController
             ]);
         }
 
-        CartItem::where('cart_id', $cart->cart_id)->delete();
+        $cart->items()->delete();
 
         return redirect()->route('customer.cart')
             ->with('success', 'Order placed successfully!');
@@ -156,24 +148,12 @@ class CustomerController
     {
         $user = Session::get('user'); 
 
-        $orders = Order::where('user_id', $user->user_id)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+        $orders = Order::with('items.product')
+        ->where('user_id', $user->user_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        $orderItems = [];
-        foreach ($orders as $order) {
-            $orderItems[$order->order_id] = OrderItem::select(
-                'order_items.*',
-                'products.name',
-                'products.image',
-                'products.price'
-            )
-            ->leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
-            ->where('order_items.order_id', $order->order_id)
-            ->get();
-        }
-
-        return view('customer.orders', compact('orders', 'orderItems'));
+        return view('customer.orders', compact('orders'));
     }
  
     //trang contact

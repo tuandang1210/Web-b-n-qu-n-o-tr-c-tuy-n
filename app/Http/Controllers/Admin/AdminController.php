@@ -136,32 +136,18 @@ class AdminController
     {
         $search = $req->search_user;
 
-        $orders = Order::select('orders.*')
-        ->when($search, function ($q) use ($search) {
-            $q->where(function ($query) use ($search) {
-                $query->where('orders.username', 'LIKE', "%$search%") 
-                    ->orWhere('orders.full_name', 'LIKE', "%$search%") 
-                    ->orWhere('orders.email', 'LIKE', "%$search%"); 
-            });
-        })
-        ->orderBy('orders.created_at', 'DESC')
-        ->get();
-
-        $orderItems = [];
-
-        foreach ($orders as $order) {
-            $orderItems[$order->order_id] = OrderItem::select(
-                'order_items.*',
-                'products.name',
-                'products.image',
-                'products.price'
-            )
-            ->leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
-            ->where('order_items.order_id', $order->order_id)
+        $orders = Order::with('items.product')
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($query) use ($search) {
+                    $query->where('username', 'LIKE', "%$search%")
+                        ->orWhere('full_name', 'LIKE', "%$search%")
+                        ->orWhere('email', 'LIKE', "%$search%");
+                });
+            })
+            ->orderBy('created_at', 'DESC')
             ->get();
-        }
 
-        return view('admin.orders', compact('orders', 'orderItems', 'search'));
+        return view('admin.orders', compact('orders', 'search'));
     }
 
     public function confirmOrder($id)

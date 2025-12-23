@@ -59,16 +59,16 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($orderItems[$o->order_id] as $item)
+                                @foreach ($o->items as $item)
                                     <tr>
                                         <td>
-                                            <img src="/{{ $item->image }}" width="60">
+                                            <img src="/{{ $item->product->image }}" width="60">
                                         </td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->product->name }}</td>
                                         <td>{{ $item->size }}</td>
-                                        <td>{{ number_format($item->price, 2) }}$</td>
+                                        <td>{{ number_format($item->product->price, 2) }}$</td>
                                         <td>{{ $item->quantity }}</td>
-                                        <td>{{ number_format($item->price * $item->quantity, 2) }}$</td>
+                                        <td>{{ number_format($item->product->price * $item->quantity, 2) }}$</td>
                                     </tr>
                                 @endforeach
                             </tbody>

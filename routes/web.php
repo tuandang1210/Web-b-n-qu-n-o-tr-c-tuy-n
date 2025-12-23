@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\CustomerController;
-use App\Http\Controllers\Customer\CartItemController;
+
 
 use App\Http\Controllers\Auth\AuthController;
 

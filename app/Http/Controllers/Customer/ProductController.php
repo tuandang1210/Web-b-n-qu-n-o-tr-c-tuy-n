@@ -13,35 +13,32 @@ class ProductController
 
     public function addToCart(Request $request, $id)
     {
+        $user = Session::get('user');
+
         $product = Product::findOrFail($id);
         $size = $request->input('size');
-        $quantity = (int)$request->input('quantity', 1);
-
-        $user = Session::get('user');
+        $quantity = (int) $request->input('quantity', 1);
 
         $cart = Cart::firstOrCreate(
             ['user_id' => $user->user_id]
         );
 
-        $cartItem = CartItem::where('cart_id', $cart->cart_id)
+        $cartItem = $cart->items()
             ->where('product_id', $product->product_id)
             ->where('size', $size)
             ->first();
 
         if ($cartItem) {
-            $cartItem->quantity += $quantity;
-            $cartItem->save();
+            $cartItem->increment('quantity', $quantity);
         } else {
-            CartItem::create([
-                'cart_id' => $cart->cart_id,
+            $cart->items()->create([
                 'product_id' => $product->product_id,
-                'size' => $size,
-                'quantity' => $quantity,
+                'size'       => $size,
+                'quantity'   => $quantity,
             ]);
         }
 
         return redirect()->route('customer.sproduct', $id)
             ->with('success', 'Thêm sản phẩm vào giỏ hàng thành công!');
-
-}
+    }
 }
