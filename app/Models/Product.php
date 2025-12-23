@@ -22,9 +22,5 @@ class Product extends Model
         'description',
     ];
 
-    // Quan hệ với order items
-    public function orderItems()
-    {
-        return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
-    }
+
 }
