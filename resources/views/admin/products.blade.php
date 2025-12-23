@@ -62,5 +62,5 @@ data-bs-target="#addProductModal" enctype="multipart/form-data">
 </table>
 
 @include('admin.modals.add_product')
-  @include('admin.modals.edit_product')
+@include('admin.modals.edit_product')
 @endsection
